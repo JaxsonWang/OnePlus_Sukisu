@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       KERNEL_SUFFIX:
-        description: '内核名称修改(可改中文和emoji)'
+        description: '自定义内核后缀'
         required: true
-        default: '-酷安FutabaWa'
+        default: '6.6.30-android15-8-g013ec21bba94-abogki383916444-4k'
       KERNEL_TIME:
-       description: "内核构建日期更改(默认为原厂)"
+       description: "自定义构建时间"
        required: true
        default: 'Tue Dec 17 23:36:49 UTC 2024'
       enable_feature_x:
@@ -23,11 +23,8 @@ on:
       enable_feature_z:
        description: "是否添加风驰驱动"
        required: false
-       default: false
+       default: true
        type: boolean
-       
-
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -50,8 +47,8 @@ jobs:
           
       - name: Configure Git
         run: |
-         git config --global user.name "Futaba"
-         git config --global user.email "3199167602@qq.com"
+         git config --global user.name "Jaxson Wang"
+         git config --global user.email "i@iiong.com"
 
       - name: Install dependencies
         run: |
@@ -76,7 +73,7 @@ jobs:
       - name: Initialize repo and sync
         run: |
          mkdir kernel_workspace && cd kernel_workspace
-         repo init -u https://github.com/HanKuCha/kernel_manifest.git -b refs/heads/oneplus/sm8750 -m JiuGeFaCai_oneplus_13_v.xml --depth=1
+         repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b refs/heads/oneplus/sm8750 -m JiuGeFaCai_oneplus_13_v.xml --depth=1
          repo --trace sync -c -j$(nproc --all) --no-tags
          rm kernel_platform/common/android/abi_gki_protected_exports_* || echo "No protected exports!"
          rm kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
