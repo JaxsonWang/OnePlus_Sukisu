@@ -5,11 +5,11 @@ on:
       KERNEL_SUFFIX:
         description: '自定义内核后缀'
         required: true
-        default: '5.15.149-android13-3-o-g0bccd3c6cb47f4'
+        default: '5.15.149-android13-8-o-01130-gb45f0b7bf168'
       KERNEL_TIME:
        description: "自定义构建时间"
        required: true
-       default: 'Wed Jun 11 05:49:11 UTC 2025'
+       default: 'Thu Jun 5 04:51:52 UTC 2025'
       enable_feature_x:
        description: "是否启用kpm"
        required: false
