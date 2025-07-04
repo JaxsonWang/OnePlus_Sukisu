@@ -5,11 +5,11 @@ on:
       KERNEL_SUFFIX:
         description: '自定义内核后缀'
         required: true
-        default: '6.6.30-android15-8-g013ec21bba94-abogki383916444-4k'
+        default: '5.15.149-android13-3-o-g0bccd3c6cb47f4'
       KERNEL_TIME:
        description: "自定义构建时间"
        required: true
-       default: 'Tue Dec 17 23:36:49 UTC 2024'
+       default: 'Wed Jun 11 05:49:11 UTC 2025'
       enable_feature_x:
        description: "是否启用kpm"
        required: false
@@ -19,11 +19,6 @@ on:
        description: "是否启用lz4kd"
        required: false
        default: false
-       type: boolean
-      enable_feature_z:
-       description: "是否添加风驰驱动"
-       required: false
-       default: true
        type: boolean
 jobs:
   build:
@@ -73,11 +68,11 @@ jobs:
       - name: Initialize repo and sync
         run: |
          mkdir kernel_workspace && cd kernel_workspace
-         repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b refs/heads/oneplus/sm8750 -m oneplus_13.xml --depth=1
+         repo init -u https://github.com/OnePlusOSS/kernel_manifest.git -b refs/heads/oneplus/sm8550 -m oneplus_11_v.xml --depth=1
          repo --trace sync -c -j$(nproc --all) --no-tags
          rm kernel_platform/common/android/abi_gki_protected_exports_* || echo "No protected exports!"
          rm kernel_platform/msm-kernel/android/abi_gki_protected_exports_* || echo "No protected exports!"
-         
+
       - name: Set up SukiSU
         run: |
          cd kernel_workspace/kernel_platform
@@ -267,15 +262,6 @@ jobs:
          cd kernel_workspace/kernel_platform
          sed -i 's/${scm_version}//' ./common/scripts/setlocalversion
          sudo sed -i 's/-4k/${{ github.event.inputs.KERNEL_SUFFIX }}/g' ./common/arch/arm64/configs/gki_defconfig
-
-      - name: Add sched_ext
-        if: ${{inputs.enable_feature_z }}
-        run: |
-         cd kernel_workspace/kernel_platform/
-         git clone https://github.com/HanKuCha/sched_ext.git
-         cp -r ./sched_ext/* ./common/kernel/sched
-         rm -rf ./sched_ext/.git
-         cd common/kernel/sched
 
       - name: Build Kernel
         run: |
