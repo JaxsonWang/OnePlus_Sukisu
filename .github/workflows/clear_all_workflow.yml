@@ -9,6 +9,9 @@ on:
         required: true
         default: 'oneplus_sm8750'
         options:
+          - oneplus_11
+          - oneplus_13
+          - oneplus_pad_2_pro
           - oneplus_sm8750
       count:
         description: '最多清理的运行次数'
