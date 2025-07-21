@@ -2,7 +2,7 @@ name: oneplus_11
 on:
   workflow_dispatch:
     inputs:
-      KERNEL_SUFFIX:
+      kernel_suffix:
         description: '自定义内核后缀'
         required: true
         default: '-android13-8-o-01130-gb45f0b7bf168'
@@ -162,7 +162,7 @@ jobs:
       - name: Add make name
         run: |
          cd kernel_workspace/kernel_platform
-         sudo sed -i '$s|echo "\$res"|echo "\${{ github.event.inputs.KERNEL_SUFFIX }}"|' ./common/scripts/setlocalversion
+         sudo sed -i '$s|echo "\$res"|echo "\${{ github.event.inputs.kernel_suffix }}"|' ./common/scripts/setlocalversion
 
       - name: Build Kernel
         run: |
