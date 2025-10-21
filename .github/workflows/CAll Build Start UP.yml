@@ -106,7 +106,7 @@ jobs:
             {
               "FILE": "${{ matrix.file }}",
               "SUSFS_CI": "NoN",
-              "KSU_META": "susfs-main/Numbersf/",
+              "KSU_META": "susfs-main/",
               "BUILD_TIME": "F",
               "SUFFIX": "",
               "FAST_BUILD": "true",
